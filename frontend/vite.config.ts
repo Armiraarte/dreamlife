@@ -9,6 +9,8 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        // Permite abrir el servidor de desarrollo por un tunel https (pruebas de Mercado Pago).
+        allowedHosts: ['.trycloudflare.com'],
         // En Docker sobre Windows los cambios en archivos montados no generan eventos.
         watch: env.VITE_USE_POLLING === 'true' ? { usePolling: true, interval: 300 } : undefined,
         // En desarrollo /api se reenvia al backend Laravel (mismo origen, sin CORS).
