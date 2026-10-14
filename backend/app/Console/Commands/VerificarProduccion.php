@@ -57,6 +57,17 @@ class VerificarProduccion extends Command
             try {
                 $cuenta = $mercadoPago->account();
                 $this->ok('Token valido · cuenta '.($cuenta['nickname'] ?? $cuenta['id'] ?? '?').' ('.($cuenta['site_id'] ?? '?').')');
+
+                // Mercado Pago marca las cuentas de prueba con la etiqueta "test_user".
+                $esCuentaDePrueba = in_array('test_user', $cuenta['tags'] ?? [], true);
+                if (config('app.env') === 'production') {
+                    $this->check(! $esCuentaDePrueba, 'Cuenta REAL: los cobros mueven dinero', 'La cuenta es un usuario de PRUEBA: en produccion no se cobrara nada');
+                } elseif ($esCuentaDePrueba) {
+                    $this->ok('Cuenta de PRUEBA (vendedor de prueba): lista para el sandbox');
+                } else {
+                    $this->avisos++;
+                    $this->line('  <fg=yellow>!</> Es tu cuenta REAL: en sandbox Mercado Pago responde "este sitio no puede recibir pagos". Usa el token del vendedor de prueba.');
+                }
                 $this->check(($cuenta['site_id'] ?? 'MLM') === 'MLM', 'Cuenta de Mexico (MLM)', 'La cuenta no es de Mexico: los cobros no seran en MXN');
             } catch (Throwable $e) {
                 $this->fallo($e->getMessage());
