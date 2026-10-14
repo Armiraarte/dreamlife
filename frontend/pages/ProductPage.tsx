@@ -2,8 +2,6 @@ import React, { Suspense, lazy } from 'react';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import type { ShopOutletContext } from '../types';
-import { APP_IMAGES } from '../imagenes_url';
-import VideoBackground from '../components/VideoBackground';
 
 const ProductCard = lazy(() => import('../components/ProductCard'));
 
@@ -32,12 +30,7 @@ const ProductPage: React.FC = () => {
   }
 
   return (
-    <div className="relative pt-24 min-h-screen animate-fade-in">
-      <VideoBackground
-        src={APP_IMAGES.productVideo}
-        poster={APP_IMAGES.productVideoPoster}
-        textShade="bg-gradient-to-b from-transparent via-black/40 to-black/80 lg:bg-gradient-to-r lg:from-transparent lg:via-black/30 lg:to-black/85"
-      />
+    <div className="pt-24 min-h-screen bg-zinc-950 animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 mb-6">
         <Link
           to="/shop"
@@ -47,11 +40,9 @@ const ProductPage: React.FC = () => {
           Volver al Menú
         </Link>
       </div>
-      <div>
-        <Suspense fallback={<Loading />}>
-          <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
-        </Suspense>
-      </div>
+      <Suspense fallback={<Loading />}>
+        <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
+      </Suspense>
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const APP_IMAGES = {
   // VIDEOS (en frontend/public/videos, mp4 H.264 sin audio).
   // Si un archivo no existe, la pagina se ve igual pero sin video.
   heroVideo: "/videos/home.mp4",              // Home: aparece en "flashazos" detras de GOD'S PLAN
-  productVideo: "/videos/producto.mp4",       // Fondo de la pagina de producto
+  productVideo: "/videos/producto.mp4",       // Fondo de la pagina de Contacto
   productVideoPoster: "/videos/producto-poster.jpg",
   aboutVideo: "/videos/nosotros.mp4",           // Fondo de la pagina Nosotros
   aboutVideoPoster: "/videos/nosotros-poster.jpg",
