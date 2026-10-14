@@ -24,6 +24,24 @@ class MercadoPagoClient
         return (bool) $this->accessToken;
     }
 
+    /** true si el token es de produccion (APP_USR-...), false si es de prueba (TEST-...). */
+    public function isProductionToken(): bool
+    {
+        return str_starts_with((string) $this->accessToken, 'APP_USR-');
+    }
+
+    /** Datos de la cuenta duena del token (sirve para comprobar que el token es valido). */
+    public function account(): array
+    {
+        $response = $this->http()->get('/users/me');
+
+        if ($response->failed()) {
+            throw new RuntimeException('Mercado Pago rechazo el token (HTTP '.$response->status().').');
+        }
+
+        return $response->json();
+    }
+
     /**
      * Crea una preferencia de pago y devuelve la respuesta de MP (id, init_point, ...).
      */
