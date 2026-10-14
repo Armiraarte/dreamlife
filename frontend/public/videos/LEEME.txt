@@ -1,0 +1,2 @@
+Coloca aqui el video de la portada con el nombre hero.mp4
+(formato mp4 H.264, de preferencia horizontal y menor a 8 MB).

@@ -1,0 +1,5 @@
+.env
+_legacy/
+.DS_Store
+Thumbs.db
+.idea/
